@@ -11,15 +11,11 @@ public class Shooting : MonoBehaviour
 
     private bool _shoot = false;
 
-    void Start()
-    {
-        
-    }
+    [SerializeField] AudioSource audioSource;
 
-    // Update is called once per frame
     void Update()
     {
-		if (Input.GetButtonDown("Jump")) 
+		if (Input.GetMouseButtonDown(0)) 
         {
             _shoot = !_shoot;
 		}
@@ -37,20 +33,24 @@ public class Shooting : MonoBehaviour
 
 	public void ShootThunder()
 	{
-        Debug.Log("Shoot");
+        audioSource.Play();
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.forward, transform.forward * 5, ThuderRange);
+        RaycastHit2D hit = Physics2D.Raycast(transform.forward, gun.forward, ThuderRange * 10);
 
         if (hit.collider != null) 
         {
-            Debug.Log("hit");
+            
 		}
 	}
 
 	private void OnDrawGizmos()
 	{
+        // Thuder range
         Gizmos.color = Color.red;
-
         Gizmos.DrawWireSphere(transform.position, ThuderRange);
+
+        // Thuder strating point
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(gun.position, .5f);
     }
 }

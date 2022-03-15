@@ -35,11 +35,11 @@ public class Movement : MonoBehaviour
 	private void Update()
 	{
 		horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-		//Potrei anche usare un vettore normalizzato
-
+		
 		animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
 		if (Input.GetButtonDown("Jump") && isGrounded) {
+			Debug.Log("Jump");
 			isJumping = true;
 			animator.SetBool("IsJumping", true);
 		}
@@ -59,7 +59,7 @@ public class Movement : MonoBehaviour
 		rb.velocity = new Vector2(horizontalMove * Time.deltaTime, rb.velocity.y);
 
 		if (isJumping) {
-			
+
 			rb.AddForce(transform.up * (jumpForce), ForceMode2D.Impulse);
 			//rb.AddForce(new Vector2(0f, jumpForce));
 			isJumping = false;
@@ -89,9 +89,9 @@ public class Movement : MonoBehaviour
 					OnLandEvent.Invoke();
 			}
 		}
+
+		Debug.Log(isGrounded);
 	}
-
-
 
 	private void Flip()
 	{
