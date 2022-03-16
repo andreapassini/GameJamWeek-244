@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private Transform groundCheck;
     [SerializeField] LayerMask whatIsGround;
+    [SerializeField] float fallJumpMultiplier = .1f;
 
     private float _groundedRadius = .2f;
 
@@ -33,7 +34,7 @@ public class Movement : MonoBehaviour
 
         Flip(_input);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         {
             _isJumping = true;
         }
@@ -52,6 +53,8 @@ public class Movement : MonoBehaviour
             _rigidbody2D.AddForce(transform.up * (JumpForce), ForceMode2D.Impulse);
             _isJumping = false;
         }
+
+        
     }
 
     private void Flip(float input)
@@ -64,5 +67,26 @@ public class Movement : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
         }
+    }
+
+    public void BetterJump()
+    {
+        if (_rigidbody2D.velocity.y < 0)
+        {
+            //_rigidbody2D.AddForce(transform.up * JumpForce * fallJumpMultiplier * -1f, ForceMode2D.Impulse);
+
+            _rigidbody2D.velocity = new Vector2(0, _rigidbody2D.velocity.y) * Physics2D.gravity.y * 0.7f * fallJumpMultiplier * -1f;
+        }
+        else if (_rigidbody2D.velocity.y < 0 && !Input.GetKeyDown(KeyCode.Space))
+        {
+            _rigidbody2D.velocity = new Vector2(0, _rigidbody2D.velocity.y) * Physics2D.gravity.y * 0.7f * fallJumpMultiplier * -1f;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        Gizmos.DrawWireSphere(groundCheck.position, _groundedRadius);
     }
 }

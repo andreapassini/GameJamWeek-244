@@ -12,9 +12,12 @@ public class Shoot : MonoBehaviour
     private Vector2 _endLightningBolt;
     private bool _isShoothing;
 
+    private Rigidbody2D _rigidbody2D;
+
     // Start is called before the first frame update
     void Start()
     {
+        _rigidbody2D = GetComponent<Rigidbody2D>();
         _isShoothing = false;
     }
 
@@ -30,11 +33,13 @@ public class Shoot : MonoBehaviour
 
     private void ShootThunderbolt()
     {
+        _rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+        
         // Start LightningBolt
         lightningPrefabs.transform.GetChild(0).position = gunPos.position;
 
         // End LightningBolt
-        lightningPrefabs.transform.GetChild(1).position = gunPos.position + new Vector3(5f, 0f, 0f);
+        lightningPrefabs.transform.GetChild(1).position = gunPos.position + new Vector3(7f, 0f, 0f);
 
         GameObject lightningBoltInst = Instantiate(lightningPrefabs);
 
@@ -43,10 +48,12 @@ public class Shoot : MonoBehaviour
 
     IEnumerator LightningBoltDuration(GameObject lightningBoltToKill)
     {
-
         yield return new WaitForSeconds(lightningBoltDuration);
 
         Destroy(lightningBoltToKill);
+
+        _rigidbody2D.constraints = 0;
+        _rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         _isShoothing = false;
     }
