@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1956494223635045387}
   - component: {fileID: 1289105199}
   - component: {fileID: 4069961030652010174}
+  - component: {fileID: 174398139}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -107,7 +108,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 16de9dcddee9d1340b16f018afd20f10, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &1956494223635045387
 CapsuleCollider2D:
@@ -137,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4104892c3d0a8fc4eb034a3fb9d60be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpForce: 8
+  JumpForce: 20
   speed: 8
   groundCheck: {fileID: 2017031040299404221}
   whatIsGround:
@@ -159,6 +160,21 @@ MonoBehaviour:
   lightningPrefabs: {fileID: 106988, guid: 15dec7b07032b2f4aa6f855bfbe120f7, type: 3}
   gunPos: {fileID: 4341717045995835239}
   lightningBoltDuration: 0.5
+--- !u!114 &174398139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956494223635045396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9202058843b1cca4fa9c91a9df809a2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 100
+  tinyScale: 0.5
+  ParticleDeath: {fileID: 0}
 --- !u!1 &2906431144012849076
 GameObject:
   m_ObjectHideFlags: 0
