@@ -1504,5 +1504,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4069961030652010174, guid: 56f1ecc74f470db4c97dd9bab8f40484, type: 3}
+      propertyPath: shootThuderBoltPrefab
+      value: 
+      objectReference: {fileID: 106988, guid: 15dec7b07032b2f4aa6f855bfbe120f7, type: 3}
+    - target: {fileID: 4069961030652010174, guid: 56f1ecc74f470db4c97dd9bab8f40484, type: 3}
+      propertyPath: selfHitThunderBoltPrefab
+      value: 
+      objectReference: {fileID: 1846922548569277098, guid: 3a38ac5c5e1ec2540928bc3a308d9927, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56f1ecc74f470db4c97dd9bab8f40484, type: 3}

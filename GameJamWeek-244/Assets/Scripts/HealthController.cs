@@ -52,7 +52,7 @@ public class HealthController : MonoBehaviour
 
     public void MakeTiny()
     {
-        transform.localScale *= - tinyScale;
+        transform.localScale = new Vector3(tinyScale, tinyScale, tinyScale);
     }
 
     public void ReverseTiny()

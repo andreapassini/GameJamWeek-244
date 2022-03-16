@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Shoot : MonoBehaviour
 {
-    [SerializeField] GameObject lightningPrefabs;
+    [SerializeField] GameObject shootThuderBoltPrefab;
+    [SerializeField] GameObject selfHitThunderBoltPrefab;
     [SerializeField] Transform gunPos;
     [SerializeField] float lightningBoltDuration = .5f;
 
@@ -31,17 +32,32 @@ public class Shoot : MonoBehaviour
         }
     }
 
-    private void ShootThunderbolt()
+    public void ShootThunderbolt()
     {
         _rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
         
         // Start LightningBolt
-        lightningPrefabs.transform.GetChild(0).position = gunPos.position;
+        shootThuderBoltPrefab.transform.GetChild(0).position = gunPos.position;
 
         // End LightningBolt
-        lightningPrefabs.transform.GetChild(1).position = gunPos.position + new Vector3(7f, 0f, 0f);
+        shootThuderBoltPrefab.transform.GetChild(1).position = gunPos.position + new Vector3(7f, 0f, 0f);
 
-        GameObject lightningBoltInst = Instantiate(lightningPrefabs);
+        GameObject lightningBoltInst = Instantiate(shootThuderBoltPrefab);
+
+        StartCoroutine(LightningBoltDuration(lightningBoltInst));
+    }
+
+    public void SelfHitThunder()
+    {
+        _rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+
+        // Start LightningBolt
+        selfHitThunderBoltPrefab.transform.GetChild(0).position = transform.position;
+
+        // End LightningBolt
+        selfHitThunderBoltPrefab.transform.GetChild(1).position = transform.position;
+
+        GameObject lightningBoltInst = Instantiate(selfHitThunderBoltPrefab);
 
         StartCoroutine(LightningBoltDuration(lightningBoltInst));
     }
