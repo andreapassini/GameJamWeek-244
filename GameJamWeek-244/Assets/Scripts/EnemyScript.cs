@@ -31,6 +31,9 @@ public class EnemyScript : MonoBehaviour
         FSMTransition t2 = new FSMTransition(PlayerNotInRange);
         FSMTransition t3 = new FSMTransition(EnemyHealthLow);
 
+        _quiescent.AddTransition(t1, _attack);
+
+
         _fsm = new FSM(_quiescent);
     }
 
