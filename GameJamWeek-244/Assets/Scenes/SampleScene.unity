@@ -789,22 +789,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 4069961030652010174, guid: 56f1ecc74f470db4c97dd9bab8f40484, type: 3}
-      propertyPath: gunPos
-      value: 
-      objectReference: {fileID: 1956494222614393659}
-    - target: {fileID: 4069961030652010174, guid: 56f1ecc74f470db4c97dd9bab8f40484, type: 3}
-      propertyPath: lightningPrefabs
-      value: 
-      objectReference: {fileID: 106988, guid: 15dec7b07032b2f4aa6f855bfbe120f7, type: 3}
-    - target: {fileID: 4069961030652010174, guid: 56f1ecc74f470db4c97dd9bab8f40484, type: 3}
-      propertyPath: lightningBoltDuration
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56f1ecc74f470db4c97dd9bab8f40484, type: 3}
---- !u!4 &1956494222614393659 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4341717045995835239, guid: 56f1ecc74f470db4c97dd9bab8f40484, type: 3}
-  m_PrefabInstance: {fileID: 1956494222614393658}
-  m_PrefabAsset: {fileID: 0}
