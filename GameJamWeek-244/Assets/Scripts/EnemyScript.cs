@@ -13,9 +13,12 @@ public class EnemyScript : MonoBehaviour
     public Transform EndPatrol;
     
     [SerializeField] private float visionRange = 10f;
-    [SerializeField] LayerMask whatIsPlayer;
-    [SerializeField] float speed = 8f;
     [SerializeField] float nearRange = 2f;
+    [SerializeField] LayerMask whatIsPlayer;
+    [SerializeField] LayerMask whatIsNotPlayer;
+    [SerializeField] float speed = 8f;
+    [SerializeField] float jumpForce = 3f;
+
 
     private FSM _fsm;
     private DecisionTree _dtRonda;
@@ -60,12 +63,22 @@ public class EnemyScript : MonoBehaviour
 
         //root
         DTDecision _dtRonda_d1 = new DTDecision(IsAtStart);
+        DTDecision _dtRonda_d2 = new DTDecision(NeedToJump);
+        DTDecision _dtRonda_d3 = new DTDecision(NeedToJump);
+
 
         DTAction _dtRonda_a1 = new DTAction(GoToStart);
         DTAction _dtRonda_a2 = new DTAction(GoToEnd);
+        DTAction _dtRonda_a3 = new DTAction(Jump);
 
-        _dtRonda_d1.AddLink(false, _dtRonda_a1);
-        _dtRonda_d1.AddLink(true, _dtRonda_a2);
+        _dtRonda_d1.AddLink(false, _dtRonda_d2);
+        _dtRonda_d1.AddLink(true, _dtRonda_d3);
+
+        _dtRonda_d2.AddLink(true, _dtRonda_a3);
+        _dtRonda_d2.AddLink(false, _dtRonda_a1);
+
+        _dtRonda_d3.AddLink(true, _dtRonda_a3);
+        _dtRonda_d3.AddLink(true, _dtRonda_a2);
 
         _dtRonda = new DecisionTree(_dtRonda_d1);
 
@@ -77,7 +90,7 @@ public class EnemyScript : MonoBehaviour
     }
 
 
-    #region FSM Transitions
+    #region FSM Conditions
     public bool PlayerInRange()
     {
         bool _inRange = false;
@@ -175,10 +188,20 @@ public class EnemyScript : MonoBehaviour
         return !_goingToStart;
     }
 
-	#endregion
+    public object NeedToJump(object o)
+    {
+        if (Physics2D.CircleCast(transform.position, transform.localScale.x, transform.forward, nearRange * 2, whatIsNotPlayer)) {
+            return true;
+        }
 
-	#region DT Actions
-	public object GoToStart(object o)
+        return false;
+    }
+
+
+    #endregion
+
+    #region DT Actions
+    public object GoToStart(object o)
 	{
 
         if(StartPatrol.position.x < transform.position.x) 
@@ -215,6 +238,13 @@ public class EnemyScript : MonoBehaviour
 
         return null;
     }
+
+    public object Jump(object o)
+	{
+        _rigidbody2D.AddForce(transform.up * (jumpForce), ForceMode2D.Impulse);
+
+        return null;
+	}
 
 	#endregion
 
