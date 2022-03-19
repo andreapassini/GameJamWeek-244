@@ -16,13 +16,6 @@ public class SelfThunderController : MonoBehaviour
 	[SerializeField] Transform spot4;
 	[SerializeField] Transform spot5;
 
-	void Update()
-	{
-		if (Input.GetMouseButtonDown(1)) {
-			SelfShootThunder();
-		}
-	}
-
 	public void SelfShootThunder()
 	{
 		ShootBolt(spot1, transform);
@@ -30,7 +23,6 @@ public class SelfThunderController : MonoBehaviour
 		ShootBolt(spot3, transform);
 		ShootBolt(spot4, transform);
 		ShootBolt(spot5, transform);
-
 	}
 
 	public void ShootBolt(Transform start, Transform end)
@@ -39,7 +31,7 @@ public class SelfThunderController : MonoBehaviour
 		thunderBoltPrefab.transform.GetChild(0).position = start.position;
 
 		// End LightningBolt
-		thunderBoltPrefab.transform.GetChild(1).position = transform.position;
+		thunderBoltPrefab.transform.GetChild(1).position = end.position;
 
 		GameObject lightningBoltInst = Instantiate(thunderBoltPrefab);
 

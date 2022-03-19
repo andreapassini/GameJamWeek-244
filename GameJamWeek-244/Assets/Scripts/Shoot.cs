@@ -15,6 +15,8 @@ public class Shoot : MonoBehaviour
 
     private Rigidbody2D _rigidbody2D;
 
+    public HealthController HealthController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,11 @@ public class Shoot : MonoBehaviour
             ShootThunderbolt();
             _isShoothing = true;
         }
+
+		if (Input.GetMouseButtonDown(1)) 
+        {
+            SelfHitThunder();
+		}
     }
 
     public void ShootThunderbolt()
@@ -44,27 +51,21 @@ public class Shoot : MonoBehaviour
 
         GameObject lightningBoltInst = Instantiate(shootThuderBoltPrefab);
 
-        StartCoroutine(LightningBoltDuration(lightningBoltInst));
+        StartCoroutine(LightningBoltDuration(lightningBoltInst, lightningBoltDuration));
     }
 
     public void SelfHitThunder()
     {
         _rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
 
-        // Start LightningBolt
-        selfHitThunderBoltPrefab.transform.GetChild(0).position = transform.position;
+        selfHitThunderBoltPrefab.GetComponent<SelfThunderController>().SelfShootThunder();
 
-        // End LightningBolt
-        selfHitThunderBoltPrefab.transform.GetChild(1).position = transform.position;
-
-        GameObject lightningBoltInst = Instantiate(selfHitThunderBoltPrefab);
-
-        StartCoroutine(LightningBoltDuration(lightningBoltInst));
+        StartCoroutine(SelfLightningBoltDuration(null, selfHitThunderBoltPrefab.GetComponent<SelfThunderController>().ThunderBoltDuration));
     }
 
-    IEnumerator LightningBoltDuration(GameObject lightningBoltToKill)
+    IEnumerator LightningBoltDuration(GameObject lightningBoltToKill, float duration)
     {
-        yield return new WaitForSeconds(lightningBoltDuration);
+        yield return new WaitForSeconds(duration);
 
         Destroy(lightningBoltToKill);
 
@@ -72,5 +73,17 @@ public class Shoot : MonoBehaviour
         _rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
 
         _isShoothing = false;
+    }
+
+    IEnumerator SelfLightningBoltDuration(GameObject lightningBoltToKill, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+
+        Destroy(lightningBoltToKill);
+
+        _rigidbody2D.constraints = 0;
+        _rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        HealthController.TakeDamage(0f);
     }
 }
