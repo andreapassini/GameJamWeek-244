@@ -31,34 +31,24 @@ public class HealthController : MonoBehaviour
         {
             Die();
         } 
-
-        if (!_isTiny)
+        else if (!_isTiny)
         {
             _isTiny = true;
-            MakeTiny();
         }
     }
 
-    public void TakeHealth(float hp)
-	{
-        _health += hp;
-
-		if (_isTiny) 
-        {
-            _isTiny = false;
-            ReverseTiny();
-		}
-
-        if (_health >= startingHealth) 
-        {
-            _health = startingHealth;
-        }        
-	}
-
     private void Update()
     {
-
-    }   
+        if (Input.GetMouseButtonDown(1) && !_isTiny)
+        {
+            MakeTiny();
+            _isTiny = true;
+        } else if(Input.GetMouseButtonDown(1) && _isTiny)
+        {
+            ReverseTiny();
+            _isTiny = false;
+        }
+    }
 
     public void MakeTiny()
     {

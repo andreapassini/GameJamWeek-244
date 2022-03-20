@@ -35,7 +35,6 @@ Transform:
   m_Children:
   - {fileID: 2017031040299404221}
   - {fileID: 4341717045995835239}
-  - {fileID: 1855359482877708158}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -158,8 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27fbc31500e18bf4fb52ddd87301acd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootThuderBoltPrefab: {fileID: 106988, guid: 15dec7b07032b2f4aa6f855bfbe120f7, type: 3}
-  selfHitThunderBoltPrefab: {fileID: 4774766951355186705, guid: 322117dca56dae64997895f5efc606c9, type: 3}
+  lightningPrefabs: {fileID: 106988, guid: 15dec7b07032b2f4aa6f855bfbe120f7, type: 3}
   gunPos: {fileID: 4341717045995835239}
   lightningBoltDuration: 0.5
 --- !u!114 &174398139
@@ -177,7 +175,6 @@ MonoBehaviour:
   startingHealth: 100
   tinyScale: 0.5
   ParticleDeath: {fileID: 0}
-  SelfThunderController: {fileID: 0}
 --- !u!1 &2906431144012849076
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,65 +235,3 @@ Transform:
   m_Father: {fileID: 1956494223635045386}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &6628435122802194798
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1956494223635045386}
-    m_Modifications:
-    - target: {fileID: 4774766951355186704, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774766951355186704, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774766951355186704, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.97
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774766951355186704, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774766951355186704, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774766951355186704, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774766951355186704, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774766951355186704, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774766951355186704, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774766951355186704, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774766951355186704, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4774766951355186707, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-      propertyPath: m_Name
-      value: SelftThunderBolt
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 322117dca56dae64997895f5efc606c9, type: 3}
---- !u!4 &1855359482877708158 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4774766951355186704, guid: 322117dca56dae64997895f5efc606c9, type: 3}
-  m_PrefabInstance: {fileID: 6628435122802194798}
-  m_PrefabAsset: {fileID: 0}
