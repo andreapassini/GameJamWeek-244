@@ -13,11 +13,13 @@ public class EnemyScript : MonoBehaviour
     public Transform EndPatrol;
     
     [SerializeField] private float visionRange = 10f;
-    [SerializeField] float nearRange = 2f;
-    [SerializeField] LayerMask whatIsPlayer;
-    [SerializeField] LayerMask whatIsNotPlayer;
-    [SerializeField] float speed = 8f;
-    [SerializeField] float jumpForce = 3f;
+    [SerializeField] private float nearRange = 2f;
+    [SerializeField] private LayerMask whatIsPlayer;
+    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private float speed = 8f;
+    [SerializeField] private float jumpForce = 3f;
+
+    [SerializeField] private Transform groundCheck;
 
 
     private FSM _fsm;
@@ -117,7 +119,7 @@ public class EnemyScript : MonoBehaviour
         // Check if Player is visible
         RaycastHit hit;
         Vector3 ray = _playerPos - transform.position;
-        if (Physics.Raycast(transform.position, ray, out hit))
+        if (Physics.Raycast(transform.position, ray, out hit, whatIsPlayer))
         {
             if(hit.transform.tag == "Player")
             {
@@ -191,15 +193,21 @@ public class EnemyScript : MonoBehaviour
 
     public object NeedToJump(object o)
     {
-        if (Physics2D.CircleCast(transform.position, 1f, transform.forward, nearRange, whatIsNotPlayer) 
-            && !_isJumping) 
+        bool _isGrounded = false;
+        _isGrounded = Physics2D.OverlapCircle(groundCheck.position, .1f, whatIsGround);
+
+		if (!_isGrounded) {
+            return false;
+		}
+
+        if (Physics2D.CircleCast(transform.position, .25f, transform.right, nearRange, whatIsGround) 
+            && !_isJumping
+            && _isGrounded) 
         {
-            Debug.Log("Is Jumpng = " + _isJumping);
+            Debug.Log("Jump");
             _isJumping = true;
             return true;
         }
-
-        _isJumping = false;
 
         return false;
     }
@@ -239,9 +247,11 @@ public class EnemyScript : MonoBehaviour
         if (EndPatrol.position.x < transform.position.x) {
             //Go left
             _rigidbody2D.velocity = new Vector2(-1 * speed, _rigidbody2D.velocity.y);
+            Flip(-1);
         } else {
             //Go right
             _rigidbody2D.velocity = new Vector2(1 * speed, _rigidbody2D.velocity.y);
+            Flip(1);
         }
 
         return null;
@@ -250,6 +260,7 @@ public class EnemyScript : MonoBehaviour
     public object Jump(object o)
 	{
         _rigidbody2D.AddForce(transform.up * (jumpForce), ForceMode2D.Impulse);
+        _isJumping = false;
 
         return null;
 	}
@@ -290,7 +301,10 @@ public class EnemyScript : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, nearRange);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.forward * 5f);
+        Gizmos.DrawWireSphere(groundCheck.position, .2f);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position + transform.right * nearRange, 0.25f);
     }
 }
 
