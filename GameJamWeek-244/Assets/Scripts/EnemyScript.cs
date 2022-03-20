@@ -200,16 +200,16 @@ public class EnemyScript : MonoBehaviour
             return false;
 		}
 
-        if (Physics2D.CircleCast(transform.position, .25f, transform.right, nearRange, whatIsGround) 
-            && !_isJumping
-            && _isGrounded) 
+		if (Physics2D.CircleCast(transform.position, .25f, transform.right, nearRange, whatIsGround)
+		&& !_isJumping
+		&& _isGrounded) 
         {
-            Debug.Log("Jump");
-            _isJumping = true;
-            return true;
-        }
+			Debug.Log("Jump");
+			_isJumping = true;
+			return true;
+		}
 
-        return false;
+		return false;
     }
 
 
