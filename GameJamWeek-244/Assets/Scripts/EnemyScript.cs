@@ -259,7 +259,7 @@ public class EnemyScript : MonoBehaviour
 
     public object Jump(object o)
 	{
-        _rigidbody2D.AddForce(transform.up * (jumpForce), ForceMode2D.Impulse);
+        _rigidbody2D.AddForce(transform.up * (jumpForce) * Time.deltaTime, ForceMode2D.Impulse);
         _isJumping = false;
 
         return null;

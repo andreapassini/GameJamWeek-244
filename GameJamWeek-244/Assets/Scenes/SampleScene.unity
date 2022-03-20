@@ -1788,6 +1788,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1872703823}
     - target: {fileID: 2623112791909254549, guid: c80bacdc96d2ee346ad946df240d4e1f, type: 3}
+      propertyPath: jumpForce
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 2623112791909254549, guid: c80bacdc96d2ee346ad946df240d4e1f, type: 3}
       propertyPath: StartPatrol
       value: 
       objectReference: {fileID: 1426919921}
