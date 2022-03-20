@@ -28,6 +28,7 @@ public class EnemyScript : MonoBehaviour
     private Collider2D _collider2D;
 
     private bool _goingToStart = true;
+    private bool _isJumping = false;
 
     // Start is called before the first frame update
     void Start()
@@ -78,7 +79,7 @@ public class EnemyScript : MonoBehaviour
         _dtRonda_d2.AddLink(false, _dtRonda_a1);
 
         _dtRonda_d3.AddLink(true, _dtRonda_a3);
-        _dtRonda_d3.AddLink(true, _dtRonda_a2);
+        _dtRonda_d3.AddLink(false, _dtRonda_a2);
 
         _dtRonda = new DecisionTree(_dtRonda_d1);
 
@@ -190,9 +191,15 @@ public class EnemyScript : MonoBehaviour
 
     public object NeedToJump(object o)
     {
-        if (Physics2D.CircleCast(transform.position, transform.localScale.x, transform.forward, nearRange * 2, whatIsNotPlayer)) {
+        if (Physics2D.CircleCast(transform.position, 1f, transform.forward, nearRange, whatIsNotPlayer) 
+            && !_isJumping) 
+        {
+            Debug.Log("Is Jumpng = " + _isJumping);
+            _isJumping = true;
             return true;
         }
+
+        _isJumping = false;
 
         return false;
     }
@@ -208,10 +215,11 @@ public class EnemyScript : MonoBehaviour
         {
             //Go left
             _rigidbody2D.velocity = new Vector2(-1 * speed, _rigidbody2D.velocity.y);
-
+            Flip(-1);
         } else{
             //Go right
             _rigidbody2D.velocity = new Vector2(1 * speed, _rigidbody2D.velocity.y);
+            Flip(1);
         }
 
   //      RaycastHit2D[] _raycastHit2D;
@@ -264,13 +272,25 @@ public class EnemyScript : MonoBehaviour
         }
     }
 
-	private void OnDrawGizmos()
+    private void Flip(float input)
+    {
+        if (input > 0) {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        } else if (input < 0) {
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+    }
+
+    private void OnDrawGizmos()
 	{
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, visionRange);
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, nearRange);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, transform.forward * 5f);
     }
 }
 
